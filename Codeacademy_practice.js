@@ -2194,3 +2194,1276 @@ console.log(nurseOlynyk.certifications);
 
 
 // ECMAScript2015
+
+
+//module exports
+
+//let Menu = {}; creates the object that represents the module Menu.
+// The statement contains an uppercase variable named Menu which is set equal to an object.
+let Menu = {};
+//Menu.specialty is defined as a property of the Menu module.
+// We add data to the Menu object by setting properties on that object, and giving the properties a value.
+
+//"Roasted Beet Burger with Mint Sauce"; is the value stored in the Menu.specialty property.
+//module.exports = Menu;
+// exports the Menu object as a module.
+// module is a variable that represents the module, and exports exposes the module as an object.
+Menu.specialty = "Roasted Beet Burger with Mint Sauce";
+
+module.exports = Menu;
+
+
+//Define an object to represent the module.
+//Add data or behavior to the module.
+    //Export the module.
+
+
+//create an object named Airplane.
+let Airplane = {};
+//Within the same file, add a property to the Airplane object named myAirplane and set it equal to "StarJet"
+Airplane.myAirplane = "StarJet";
+//Export the module.
+module.exports = Airplane;
+
+
+//functions
+const Airplane = require('./1-airplane.js');
+
+function displayAirplane() {
+    console.log(Airplane.myAirplane);
+}
+
+displayAirplane();
+
+#functions amd modules
+
+const Airplane = {};
+
+module.exports = {
+    myAirplane: "CloudJet",
+    displayAirplane: function() {
+        return this.myAirplane;
+    }
+};
+//export default
+let Airplane = {};
+
+Airplane.availableAirplanes = [];
+
+Airplane.availableAirplanes = [
+    {
+        name: 'AeroJet',
+        fuelCapacity: 800
+    },
+    {name: 'SkyJet',
+        fuelCapacity: 500
+    }
+];
+
+export default Airplane;
+
+
+#import
+
+import Airplane from './airplane';
+
+function displayFuelCapacity() {
+}
+
+function displayFuelCapacity() {
+    Airplane.availableAirplanes.forEach(function(){});
+}
+
+function displayFuelCapacity() {
+    Airplane.availableAirplanes.forEach(function(element){
+        console.log('Fuel Capacity of ' + element.name + ': ' + element.fuelCapacity);
+    });
+}
+
+displayFuelCapacity();
+
+
+
+
+
+
+
+
+
+let availableAirplanes = [{
+    name: 'AeroJet',
+    fuelCapacity: 800,
+    availableStaff: ['pilots', 'flightAttendants', 'engineers', 'medicalAssistance', 'sensorOperators'],
+},
+    {name: 'SkyJet',
+        fuelCapacity: 500,
+        availableStaff: ['pilots', 'flightAttendants']
+    }];
+
+let flightRequirements = {
+    requiredStaff: 4,
+};
+
+function meetsStaffRequirements(availableStaff, requiredStaff) {
+    if (availableStaff.length >= requiredStaff) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export { availableAirplanes, flightRequirements, meetsStaffRequirements};
+
+
+
+//modules
+import { availableAirplanes, flightRequirements, meetsStaffRequirements} from './airplane';
+
+import meetsSpeedRangeRequirements from './airplane';
+
+function displayFuelCapacity() {
+    availableAirplanes.forEach(function(element) {
+        console.log('Fuel Capacity of ' + element.name + ': ' + element['fuelCapacity']);
+    });
+}
+
+displayFuelCapacity();
+
+function displayStaffStatus() {
+    availableAirplanes.forEach(function(element) {
+        console.log(element.name + ' meets staff requirements: ' + meetsStaffRequirements(element.availableStaff, flightRequirements.requiredStaff) );
+    });
+}
+
+displayStaffStatus();
+
+function displaySpeedRangeStatus() {
+    availableAirplanes.forEach(function(element) {
+        console.log(element.name + ' meets speed range requirements:' + meetsSpeedRangeRequirements(element.maxSpeed, element.minSpeed, flightRequirements.requiredSpeedRange));
+    });
+}
+
+displaySpeedRangeStatus();
+
+
+
+//requests
+//http requests
+//AJAX involves requesting data over the web, which is done using HTTP Requests.
+
+
+//xhr requests
+const xhr = new XMLHttpRequest();
+const url = 'https://api-to-call.com/endpoint';
+
+xhr.responseType = 'json';
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        console.log(xhr.response);
+    }
+};
+
+xhr.open('GET', url);
+xhr.send();
+
+
+//http post-requests
+const xhr = new XMLHttpRequest();
+const url = 'https://api-to-call.com/endpoint';
+const data = JSON.stringify({id: '200'});
+
+xhr.responseType = 'json';
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        console.log(xhr.response);
+    }
+};
+
+xhr.open('POST', url);
+xhr.send(data);
+
+
+
+
+
+
+
+//xhr post requests
+
+// Include data for accessing Google APIs
+
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url +
+        '?key=' + apiKey +
+        '&shortUrl=' + $inputField.val();
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            $responseField.append('<p>Your expanded url is: </p><p>' + xhr.response.longUrl + '</p>');
+        }
+    };
+
+    xhr.open('GET', urlToExpand);
+    xhr.send();
+}
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+    const data = JSON.stringify({longUrl: urlToShorten});
+
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            console.log(xhr.response);
+            $responseField.append('<p>Your shortened url is: </p><p>' + xhr.response.id + '</p>');
+        }
+    };
+
+    xhr.open('POST', urlWithKey);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
+}
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+}
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+}
+
+// Call functions on submit
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+//$.ajax() is a method provided by the jQuery library specifically to handle AJAX requests.
+// all parts of the request are included in a single object that is passed to the method as an argument.
+//The first property of the settings object is url and its value is the endpoint of the API. The second property is the type of request, in this case, 'GET'.
+// This property is optional for GET requests because it is the default setting.
+// The next property specifies the dataType, which is 'json' in this case.
+//Then, we include the success function which will handle the response if our request is successful.
+// We create it with a single parameter, response.
+// Inside the function's code block, we will specify what to do with the response object
+// we include the error function which will handle the response if our request is not successful.
+// This function is created with three parameters, jqXHR, status, and errorThrown.
+// jqXHR is the XHR response object returned by the $.ajax() method. It will contain information about the error.
+
+
+
+//call an ajax function and pass it to an empty object
+$.ajax({})
+
+
+
+
+
+//Call the $.ajax() method and pass it an empty object.
+//Inside the object, add the first property ,url, with the following URL as its value:
+//Add the second property, type, with the value 'GET'.
+//Add the third property, dataType, with the value 'json'.
+//Add the success callback function.
+// The parameter is called response. Inside the function's code block, log the response to the console.
+//Add the error callback function. It takes three parameters, jqXHR, status, and errorThrown.
+// Inside the function's code block, log jqXHR to the console.
+// Verify that the $.ajax() method call is closed with }); at the very end.
+
+$.ajax({
+    url: 'https://api-to-call.com/endpoint',
+    type: 'GET',
+    dataType: 'json',
+    success(response) {
+        console.log(response);
+    }, error(jqXHR, status, errorThrown) {
+        console.log(jqXHR);
+    }
+});
+
+
+
+
+
+
+
+
+
+//ajax get requests
+
+
+// Include data for accessing Google APIs
+
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url +
+        '?key=' + apiKey +
+        '&shortUrl=' + $inputField.val();
+    $.ajax({
+        url: urlToExpand,
+        type: 'GET',
+        dataType: 'json',
+        success(response) {
+            $responseField.append('<p>Your expanded url is: </p><p>' + response.longUrl + '</p>');
+        }, error(jqXHR, status, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+}
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+    const data = JSON.stringify({longUrl: urlToShorten});
+
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            console.log(xhr.response);
+            $responseField.append('<p>Your shortened url is: </p><p>' + xhr.response.id + '</p>');
+        }
+    };
+
+    xhr.open('POST', urlWithKey);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
+}
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+}
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+}
+
+// Call functions on submit
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Call the $.ajax() method and pass it an empty object.
+//Inside the object, add the first property ,url, with the following URL as its value:
+//Add the second property, type, with the value 'POST'.
+//Add the third property, data, with this object as its value: {id: 200}. This object should be passed to JSON.stringify()
+//Add the fourth property, dataType, with the value 'json'.
+//Add the success callback function. The parameter is called response. Inside the function's code block, log the response to the console.
+//Add the error callback function. It takes three parameters, jqXHR, status, and errorThrown.
+// Inside the function's code block, log jqXHR to the console.
+// Verify that the .ajax() method call is closed with }); at the very end.
+
+$.ajax({
+    url: 'https://api-to-call.com/endpoint',
+    type: 'POST',
+    data: JSON.stringify({id: 200}),
+    dataType: 'json',
+    success(response) {
+        console.log(response);
+    }, error(jqXHR, status, errorThrown) {
+        console.log(jqXHR);
+    }
+});
+
+
+
+//AJAX() POST REQUESTS
+// Include data for accessing Google APIs
+
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url +
+        '?key=' + apiKey +
+        '&shortUrl=' + $inputField.val();
+    $.ajax({
+        url: urlToExpand,
+        type: 'GET',
+        dataType: 'json',
+        success(response) {
+            $responseField.append('<p>Your expanded url is: </p><p>' + response.longUrl + '</p>');
+        },
+        error(jqXHR, status, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+};
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+
+    $.ajax({
+        url: urlWithKey,
+        type: 'POST',
+        data: JSON.stringify({longUrl: urlToShorten}),
+        dataType: 'json',
+        contentType: 'application/json',
+        success(response) {
+            $responseField.append('<p>Your shortened url is: </p><p>' + response.id + '</p>');
+        },
+        error(jqXHR, status, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+}
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+}
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+}
+
+// Call functions on submit
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+//AJAX requests with $.get()
+
+// Include data for accessing Google APIs
+
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url +
+        '?key=' + apiKey +
+        '&shortUrl=' + $inputField.val();
+    $.get(urlToExpand, response => {
+        $responseField.append('<p>Your expanded url is: </p><p>' +
+        response.longUrl + '</p>');
+}, 'json');
+}
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+
+    $.ajax({
+        url: urlWithKey,
+        type: 'POST',
+        data: JSON.stringify({longUrl: urlToShorten}),
+        dataType: 'json',
+        contentType: 'application/json',
+        success(response) {
+            $responseField.append('<p>Your shortened url is: </p><p>' + response.id + '</p>');
+        },
+        error(jqXHR, status, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+}
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+}
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+}
+
+// Call functions on submit
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+//jquery library
+$.get('https://api-to-call.com/endpoint', response => {...}, 'json');
+//we use the $.get() method to write a GET request.
+//$.get( opens the method call.
+//'https://api-to-call.com/endpoint' is the URL to which we're making our request.
+//The second parameter, response => {...} is an arrow function.
+// This is the success callback function.
+// Between the curly braces, specify what to do with the response if it is successful,
+// such as logging it to the console or appending it to the body of the HTML.
+//The third parameter, 'json', is the response format.
+
+
+
+
+//AJAX requests with $.post()
+$.post('https://api-to-call.com/endpoint', {data}, response => {...}, 'json');
+//.post() method to write a POST request using AJAX.
+//$.post( opens the method call.
+//'https://api-to-call.com/endpoint' is the URL to which we're making our request.
+//The second parameter, {data} is the object you'll use to send data with your request.
+//The third parameter, response => {...} is an arrow function.
+// This is the success callback function. Between the curly braces,
+// you would specify what you want to do with the response if it is successful,
+// such as logging it to the console or appending it to the body of the HTML.
+//The fourth parameter, 'json', is the response format.
+//JavaScript is the language of the web because of its asynchronous capabilities.
+// A set of tools that are used together to take advantage of JavaScript's asynchronous capabilities is called AJAX,
+// which stands for Asynchronous JavaScript and XML.
+//There are four HTTP request methods, two of which are GET and POST.
+//GET requests only request information from other sources.
+//POST methods can introduce new information to other sources in addition to requesting it.
+//GET requests can be written using an XMLHttpRequest object and vanilla JavaScript.
+//POST requests can also be written using an XMLHttpRequest object and vanilla JavaScript.
+//Writing GET and POST requests with XHR objects and vanilla JavaScript requires constructing the XHR object using new,
+// setting the responseType, creating a function that will handle the response object, and opening and sending the request.
+//Much of the boilerplate used to write GET and POST requests with XHR and vanilla JavaScript can be reduced by using the $.ajax() method from the jQuery library.
+//jQuery provides other helper methods that can further reduce boilerplate such as $.get(), $.post(), and $.getJSON().
+//Determining how to correctly write the requests and
+// how to properly implement them requires carefully reading the documentation of the API with which you're working
+
+
+
+
+
+
+
+
+//Requests with ES6
+
+// Include data for accessing Google APIs
+
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#address');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+async function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    try {
+        let response = await fetch(urlToExpand);
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            $responseField.append('<p> Your expanded url is <p></p> ' + jsonResponse.longUrl + '</p>');
+            return jsonResponse;
+        }
+        throw new Error('Request failed!');
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+async function shortenUrl() {
+    const urlToShorten = $inputField.val();
+    let urlWithKey = url + `?key=` + apiKey;
+    try {
+        let response = await fetch(urlWithKey, {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                longUrl: urlToShorten
+            })
+        });
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            $responseField.append('<p> Your shortened url is <p></p>' + jsonResponse.id + '</p>');
+            return jsonResponse;
+        }
+        throw new Error('Request failed!');
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+// Call the functions when the appropriate button is clicked
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+//fetch() GET Requests I
+//fetch() function and pass it a single argument - the URL of the API endpoint
+//Because this is a GET request,
+// this URL will contain the URL to the API and may also contain query parameters, an API key, a client ID,
+// or other information necessary to make the request
+// fetch() function
+//
+// creates a request object using the information provided to it
+//sends that request object to the URL provided
+//returns a Promise that ultimately resolves to a response object, which contains a lot of information, including (if everything went well), the information requested.
+//fetch() is a web API, not all browsers support it.
+//To ensure that all users can run code that uses fetch,
+// we can add a polyfill that will be used if a user doesn't have fetch() support in their browser.
+
+
+//call the fetch() function and pass it this URL as a string:
+//Chain a .then() method to the end of the fetch() function
+// and pass it the success callback function as its first argument.
+// The success callback function takes response as its only parameter.
+//You can write the function using the function keyword — (function(parameter) {}) — or using arrow function syntax — (parameter => {}).
+//Inside of the response callback function,
+// check the ok property of theresponse object inside of a conditional statement.
+// In the code block of the conditional statement, return response.json().
+//Below the curly braces of the conditional statement, create a new error
+//Create the failure callback function.
+// This function takes a single parameter, networkError.
+// Separate the first callback function from the second with a comma.
+//Chain another .then() method to the end of the first .then() method.
+
+
+
+
+fetch('https://api-to-call.com/endpoint').then(
+    response => {
+    if (response.ok) {
+    return response.json();
+}
+throw new Error('Request failed!');
+}, networkError => {
+    console.log(networkError.message);
+}).then(jsonResponse => jsonResponse);
+
+
+
+//fetch() GET Requests IV
+
+
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    fetch(urlToExpand).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message));
+};
+
+
+function shortenUrl() {
+
+};
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+//fetch get requests
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    fetch(urlToExpand).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => {
+        $responseField.append('<p> Your expanded URL is </p><p> ' + jsonResponse.longUrl + '</p>');
+    return jsonResponse;
+});
+};
+
+
+function shortenUrl() {
+
+};
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+
+//Call the fetch() function, pass it the URL as a string as its first argument, and pass it an empty object ({}) as its second argument.
+//The settings object you passed to the fetch() function will contain two properties: method, with a value of 'POST',
+// and body, with a value of JSON.stringify({id: '200'}). The body is the information that we need to send to the API.
+//Chain a .then() method to the fetch() function and pass it the success callback function as its first parameter.
+//Inside of this function's code block, check the ok property of the response object inside of a conditional statement.
+// In the code block of the conditional statement, return response.json().
+//Below the curly braces of the conditional statement, create a new error with this code:
+//Create the failure callback function. This function takes a single parameter, networkError. Separate the first callback function from the second with a comma. This function is still inside of the .then() method.
+
+//In the code block of the function you just made, log networkError.message to the console.
+//Chain another .then() method to the end of the first .then() method.
+//Pass the new .then() method a callback function that takes jsonResponse as its parameter and returns jsonResponse.
+
+
+fetch('https://api-to-call.com/endpoint', {
+    method: 'POST',
+    body: JSON.stringify({id: '200'})
+}).then(response => {
+    if (response.ok) {
+    return response.json();
+}
+throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => jsonResponse);
+
+
+
+
+
+
+//fetch post requests
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    fetch(urlToExpand).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => {
+        $responseField.append('<p> Your expanded URL is </p><p> ' + jsonResponse.longUrl + '</p>');
+    return jsonResponse;
+});
+};
+
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+    fetch(urlWithKey, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({longUrl: urlToShorten})
+    });
+};
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//fetch post requests
+
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    fetch(urlToExpand).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => {
+        $responseField.append('<p> Your expanded URL is </p><p> ' + jsonResponse.longUrl + '</p>');
+    return jsonResponse;
+});
+};
+
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+    fetch(urlWithKey, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({longUrl: urlToShorten})
+    }).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message));
+};
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+
+//fetch() POST Requests
+
+
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    fetch(urlToExpand).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => {
+        $responseField.append('<p> Your expanded URL is </p><p> ' + jsonResponse.longUrl + '</p>');
+    return jsonResponse;
+});
+};
+
+
+function shortenUrl() {
+    const urlWithKey = url + '?key=' + apiKey;
+    const urlToShorten = $inputField.val();
+    fetch(urlWithKey, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({longUrl: urlToShorten})
+    }).then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error('Request failed!');
+}, networkError => console.log(networkError.message)).then(jsonResponse => {$responseField.append('<p> Your shortened URL is </p><p>' + jsonResponse.id + '</p>');
+    return jsonResponse;});
+};
+
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//create a function using the async keyword called getData.
+//In the function's code block, add a try statement with an empty code block.
+
+//Below the try statement's code block, add a catch (error) statement.
+
+//Inside the error code block, log the error to the console.
+//.
+//Inside of the code block of the try statement, await the response of the fetch() function.
+//Save the returned Promise in a variable called response using the let keyword.
+//Create a conditional statement that checks if the ok property of the response object evaluates to a truthy value.
+
+//Inside the conditional statement's code block, await the resolution of calling the .json() method on the response object.
+
+//Save the returned object to a variable called jsonResponse using the keyword let.
+//Return jsonResponse
+//throw a new Error that says 'Request failed!'.
+
+
+
+async function getData() {
+    try {
+        let response = await fetch('https://api-to-call.com/endpoint');
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            return jsonResponse;
+        }
+        throw new Error('Request failed!');
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+
+//async GET Requests
+
+// Include data for accessing Google APIs
+const apiKey = '<http://localhost:8000/>';
+async function expandUrl() {
+
+}
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+
+// Clear page and call AJAX functions
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
+
+
+
+
+
+// create a function using the async keyword called getData.
+//In the function's code block, add a try statement with an empty code block.
+
+//Below the try statement's code block, add a catch (error) statement.
+
+//Inside the error code block, log the error to the console.
+//Inside of the code block of the try statement,
+// create a variable called response using the let keyword. await the response of the fetch() function and save that to response
+//After the fetch() function, but still within the try code block,
+// create a conditional statement that checks if the ok property of the response object evaluates to a truthy value.
+//Below the conditional statement's code block, throw a new Error that says 'Request failed!'
+
+async function getData() {
+    try {
+        let response = await fetch('https://api-to-call.com/endpoint', {
+            method: 'POST',
+            body: JSON.stringify({id: 200})
+        });
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            return jsonResponse;
+        }
+        throw new Error('Request failed!');
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+
+
+
+
+
+//async POST REQUESTS
+
+// Include data for accessing Google APIs
+const apiKey = '<Your API Key>';
+const url = 'https://www.googleapis.com/urlshortener/v1/url';
+
+// Some page elements
+const $inputField = $('#input');
+const $expandButton = $('#expand');
+const $shortenButton = $('#shorten');
+const $responseField = $('#responseField');
+
+// AJAX functions
+
+async function expandUrl() {
+    const urlToExpand = url + '?shortUrl=' + $inputField.val() + '&key=' + apiKey;
+    try {
+        let response = await fetch(urlToExpand);
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            $responseField.append('<p> Your expanded URL is </p><p>' + jsonResponse.longUrl+ '</p>');
+            return jsonResponse;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function shortenUrl() {
+    const urlToShorten = $inputField.val();
+    const urlWithKey = url + '?key=' + apiKey;
+    try {
+        let response = await fetch(urlWithKey, {
+            method: 'POST',
+            body: JSON.stringify({longUrl: urlToShorten}),
+            headers: {
+                "Content-type": "application/json"
+            }
+        });
+        if (response.ok) {
+            let jsonResponse = await response.json();
+            $responseField.append('<p> Your shortened URL is </p><p>' + jsonResponse.id + '</p>');
+            return jsonResponse;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// Clear page and call AJAX functions
+function expand() {
+    $responseField.empty();
+    expandUrl();
+    return false;
+};
+
+function shorten() {
+    $responseField.empty();
+    shortenUrl();
+    return false;
+};
+
+$expandButton.click(expand);
+$shortenButton.click(shorten);
